@@ -114,6 +114,8 @@ NFC_EXPORT int nfc_target_receive_bytes(nfc_device *pnd, uint8_t *pbtRx, const s
 NFC_EXPORT int nfc_target_send_bits(nfc_device *pnd, const uint8_t *pbtTx, const size_t szTxBits, const uint8_t *pbtTxPar);
 NFC_EXPORT int nfc_target_receive_bits(nfc_device *pnd, uint8_t *pbtRx, const size_t szRx, uint8_t *pbtRxPar);
 
+NFC_EXPORT int nfc_transceive_bytes(nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx, uint8_t *pbtRx, const size_t szRx, int timeout);
+
 /* Error reporting */
 NFC_EXPORT const char *nfc_strerror(const nfc_device *pnd);
 NFC_EXPORT int nfc_strerror_r(const nfc_device *pnd, char *buf, size_t buflen);

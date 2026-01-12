@@ -557,6 +557,8 @@ const struct nfc_driver pn532_uart_driver = {
   .target_send_bits      = pn53x_target_send_bits,
   .target_receive_bits   = pn53x_target_receive_bits,
 
+  .transceive_bytes      = pn53x_transceive_bytes,
+
   .device_set_property_bool     = pn53x_set_property_bool,
   .device_set_property_int      = pn53x_set_property_int,
   .get_supported_modulation     = pn53x_get_supported_modulation,

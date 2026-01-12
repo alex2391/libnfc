@@ -149,6 +149,8 @@ struct nfc_driver {
   int (*target_send_bits)(struct nfc_device *pnd, const uint8_t *pbtTx, const size_t szTxBits, const uint8_t *pbtTxPar);
   int (*target_receive_bits)(struct nfc_device *pnd, uint8_t *pbtRx, const size_t szRxLen, uint8_t *pbtRxPar);
 
+  int (*transceive_bytes)(struct nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx, uint8_t *pbtRx, const size_t szRx, int timeout);
+
   int (*device_set_property_bool)(struct nfc_device *pnd, const nfc_property property, const bool bEnable);
   int (*device_set_property_int)(struct nfc_device *pnd, const nfc_property property, const int value);
   int (*get_supported_modulation)(struct nfc_device *pnd, const nfc_mode mode, const nfc_modulation_type **const supported_mt);

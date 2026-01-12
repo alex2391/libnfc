@@ -1122,6 +1122,13 @@ nfc_target_receive_bits(nfc_device *pnd, uint8_t *pbtRx, const size_t szRx, uint
   return HAL(target_receive_bits, pnd, pbtRx, szRx, pbtRxPar);
 }
 
+int
+nfc_transceive_bytes(nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx, uint8_t *pbtRx,
+                               const size_t szRx, int timeout)
+{
+  return HAL(transceive_bytes, pnd, pbtTx, szTx, pbtRx, szRx, timeout);
+}
+
 static struct sErrorMessage {
   int     iErrorCode;
   const char *pcErrorMsg;

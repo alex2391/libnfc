@@ -348,6 +348,32 @@ pn53x_transceive(struct nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx
 }
 
 int
+pn53x_transceive_bytes(struct nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx, uint8_t *pbtRx, const size_t szRx, int timeout)
+{
+  int res = 0;
+
+  // Send the raw command frame to the PN53X chip and get the answer
+  uint8_t  abtRx[PN53x_EXTENDED_FRAME__DATA_MAX_LEN];
+  if ((res = pn53x_transceive(pnd, pbtTx, szTx, abtRx, sizeof(abtRx), timeout)) < 0) {
+    pnd->last_error = res;
+    return pnd->last_error;
+  }
+  // Unlike InCommunicateThru, raw chip commands have no common status byte: return the whole answer
+  const size_t szRxLen = (size_t)res;
+  if (pbtRx != NULL && szRxLen > 0) {
+    if (szRxLen > szRx) {
+      log_put(LOG_GROUP, LOG_CATEGORY, NFC_LOG_PRIORITY_ERROR, "Buffer size is too short: %" PRIuPTR " available(s), %" PRIuPTR " needed", szRx, szRxLen);
+      pnd->last_error = NFC_EOVFLOW;
+      return pnd->last_error;
+    }
+    // Copy the received bytes
+    memcpy(pbtRx, abtRx, szRxLen);
+  }
+  // Everything went successful, we return received bytes count
+  return res;
+}
+
+int
 pn53x_set_parameters(struct nfc_device *pnd, const uint8_t ui8Parameter, const bool bEnable)
 {
   uint8_t ui8Value = (bEnable) ? (CHIP_DATA(pnd)->ui8Parameters | ui8Parameter) : (CHIP_DATA(pnd)->ui8Parameters & ~(ui8Parameter));

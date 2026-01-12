@@ -304,6 +304,7 @@ extern const uint8_t pn53x_nack_frame[PN53x_ACK_FRAME__LEN];
 
 int    pn53x_init(struct nfc_device *pnd);
 int    pn53x_transceive(struct nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx, uint8_t *pbtRx, const size_t szRxLen, int timeout);
+int    pn53x_transceive_bytes(struct nfc_device *pnd, const uint8_t *pbtTx, const size_t szTx, uint8_t *pbtRx, const size_t szRx, int timeout);
 
 int    pn53x_set_parameters(struct nfc_device *pnd, const uint8_t ui8Value, const bool bEnable);
 int    pn53x_set_tx_bits(struct nfc_device *pnd, const uint8_t ui8Bits);
